@@ -32,6 +32,7 @@ class MycroftOS(MycroftSkill):
 	def __init__(self):
 		super().__init__('MycroftOS')
 		self.skip_list = ('MycroftOS')
+		self.loading = True
 
 	def initialize(self):
 		""" Perform initalization.
@@ -46,6 +47,9 @@ class MycroftOS(MycroftSkill):
 					self.handle_listener_ended)
 			self.add_event('mycroft.speech.recognition.unknown',
 					self.handle_failed_stt)
+
+			# Handle Device Ready
+			self.bus.on('mycroft.ready', self.reset_screen)
 
 			# Handle the 'busy' visual
 			self.bus.on('mycroft.skill.handler.start',
@@ -147,6 +151,13 @@ class MycroftOS(MycroftSkill):
 		#framebuffer background
 		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
 
+
+	# Device is fully started
+	def reset_screen(self, message):
+		"""Triggered after skills are initialized."""
+		self.loading = False
+		if is_paired():
+			os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
 
 	# System actions
 	def on_shutdown(self, message):
