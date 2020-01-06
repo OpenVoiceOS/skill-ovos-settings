@@ -158,6 +158,7 @@ class MycroftOS(MycroftSkill):
 		self.loading = False
 		if is_paired():
 			os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
+			self.speak_dialog('finished.booting')
 
 	# System actions
 	def on_shutdown(self, message):
