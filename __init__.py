@@ -76,7 +76,6 @@ class MycroftOS(MycroftSkill):
 		except Exception:
 			LOG.exception('In MycroftOS Skill')
 
-		self.settings.set_changed_callback(self.on_websettings_changed)
 
 	# System volume
 	#def on_volume_set(self, message):
