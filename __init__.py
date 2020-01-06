@@ -171,24 +171,18 @@ class MycroftOS(MycroftSkill):
 		sleep(5)
 		os.system("sudo shutdown --reboot now")
 
-	def enable_airplay(self, message):
-		os.system("sudo systemctl enable shairport-sync.service")
-		os.system("sudo systemctl start shairport-sync.service")
-
-	def disable_airplay(self, message):
-                os.system("sudo systemctl disable shairport-sync.service")
-                os.system("sudo systemctl stop shairport-sync.service")
-
 
 	# Intent handlers
-	@intent_handler(IntentBuilder("").require("EnableAirPlay"))
-	def handle_enable_airplay_intent(self, message):
-		self.enable_airplay()
+	@intent_file_handler("EnableAirPlay.intent")
+	def enable_airplay(self, message):
+		os.system("sudo systemctl enable shairport-sync.service")
+                os.system("sudo systemctl start shairport-sync.service")
 		self.speak_dialog("EnableAirPlay")
 
-	@intent_handler(IntentBuilder("").require("DisableAirPlay"))
-	def handle_disable_airplay_intent(self, message):
-		self.disable_airplay()
+	@intent_file_handler("DisableAirPlay.intent")
+	def disable_airplay(self, message):
+		os.system("sudo systemctl disable shairport-sync.service")
+                os.system("sudo systemctl stop shairport-sync.service")
 		self.speak_dialog("DisableAirPlay")
 
 
