@@ -1,0 +1,32 @@
+{
+    "name": "MycroftOS System",
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "Enabled services",
+                "fields": [
+                    {
+                        "type": "label",
+                        "label": "Secure Shell (SSH) is a cryptographic network protocol for operating a remote command-line, login, and remote command execution. WARNING: Make sure you change the password for the default user; mycroft."
+                    },
+                    {
+                        "name": "sshd",
+                        "type": "checkbox",
+                        "label": "Enable / Disable",
+                        "value": "true"
+                    },
+                    {
+                        "type": "label",
+                        "label": "AirPlay audio player (v1) – it plays audio streamed from iTunes, iOS, Apple TV and macOS devices and AirPlay sources such as Quicktime Player and ForkedDaapd, among others."
+                    },
+                    {
+                        "name": "airplay",
+                        "type": "checkbox",
+                        "label": "Enable / Disable",
+                        "value": "false"
+                    }
+                ]
+            }
+        ]
+    }
+}
