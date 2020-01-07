@@ -34,9 +34,6 @@ class MycroftOS(MycroftSkill):
 		self.skip_list = ('MycroftOS')
 		self.loading = True
 
-		self.settings["sshd"] = False
-		self.settings["airplay"] = False
-
 	def initialize(self):
 		""" Perform initalization.
 		Registers messagebus handlers.
@@ -84,9 +81,9 @@ class MycroftOS(MycroftSkill):
 			LOG.exception('In MycroftOS Skill')
 
 	def on_websettings_changed(self):
-		if self.settings.get("sshd") = True:
+		if self.settings.get("sshd") is True:
 			self.enable_ssh()
-		if self.settings.get("airplay") = True:
+		if self.settings.get("airplay") is True:
 			self.enable_airplay()
 
 	# System volume
@@ -186,16 +183,16 @@ class MycroftOS(MycroftSkill):
 
 	# Intent handlers
 	@intent_file_handler("EnableSSH.intent")
-        def enable_ssh(self, message):
-                os.system("sudo systemctl enable sshd.service")
+	def enable_ssh(self, message):
+		os.system("sudo systemctl enable sshd.service")
 		os.system("sudo systemctl start sshd.service")
-                self.speak_dialog("EnableSSH")
+		self.speak_dialog("EnableSSH")
 
-        @intent_file_handler("DisableSSH.intent")
-        def disable_ssh(self, message):
-                os.system("sudo systemctl disable sshd.service")
+	@intent_file_handler("DisableSSH.intent")
+	def disable_ssh(self, message):
+		os.system("sudo systemctl disable sshd.service")
 		os.system("sudo systemctl stop sshd.service")
-                self.speak_dialog("DisableSSH")
+		self.speak_dialog("DisableSSH")
 
 	@intent_file_handler("EnableAirPlay.intent")
 	def enable_airplay(self, message):
