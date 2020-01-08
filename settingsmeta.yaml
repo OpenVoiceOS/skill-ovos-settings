@@ -10,7 +10,7 @@ skillMetadata:
         - name: airplay
           type: checkbox
           label: Enabled
-          value: false
+          value: "false"
     - name: MycroftOS system configuration
       fields:
         - type: label
@@ -21,4 +21,4 @@ skillMetadata:
         - name: sshd
           type: checkbox
           label: Enabled
-          value: true
+          value: "true"

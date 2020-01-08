@@ -33,6 +33,8 @@ class MycroftOS(MycroftSkill):
 		super().__init__('MycroftOS')
 		self.skip_list = ('MycroftOS')
 		self.loading = True
+		self.airplay = self.settings.get("airplay")
+		self.sshd = self.settings.get("sshd")
 
 	def initialize(self):
 		""" Perform initalization.
@@ -81,10 +83,21 @@ class MycroftOS(MycroftSkill):
 			LOG.exception('In MycroftOS Skill')
 
 	def on_websettings_changed(self):
-		if self.settings.get("sshd") is True:
-			self.enable_ssh()
-		if self.settings.get("airplay") is True:
-			self.enable_airplay()
+		if self.sshd != self.settings.get("sshd")
+			if self.settings.get("sshd") is True:
+				self.sshd = True
+				self.enable_ssh()
+			else:
+				self.sshd = False
+				self.disable_ssh()
+
+		if self.airplay != self.settings.get("airplay")
+			if self.settings.get("airplay") is True:
+				self.airplay = True
+				self.enable_airplay()
+			else:
+				self.airplay = False
+				self.disable_airplay()
 
 	# System volume
 	#def on_volume_set(self, message):
