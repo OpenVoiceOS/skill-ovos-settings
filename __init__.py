@@ -86,18 +86,18 @@ class MycroftOS(MycroftSkill):
 		if self.sshd != self.settings.get("sshd")
 			if self.settings.get("sshd") is True:
 				self.sshd = True
-				self.enable_ssh()
+				enable_ssh()
 			else:
 				self.sshd = False
-				self.disable_ssh()
+				disable_ssh()
 
 		if self.airplay != self.settings.get("airplay")
 			if self.settings.get("airplay") is True:
 				self.airplay = True
-				self.enable_airplay()
+				enable_airplay()
 			else:
 				self.airplay = False
-				self.disable_airplay()
+				disable_airplay()
 
 	# System volume
 	#def on_volume_set(self, message):
