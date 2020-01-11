@@ -200,24 +200,28 @@ class MycroftOS(MycroftSkill):
 		os.system("sudo systemctl enable sshd.service")
 		os.system("sudo systemctl start sshd.service")
 		self.speak_dialog("EnableSSH")
+		self.settings["sshd"] = True
 
 	@intent_file_handler("DisableSSH.intent")
 	def disable_ssh(self, message):
 		os.system("sudo systemctl disable sshd.service")
 		os.system("sudo systemctl stop sshd.service")
 		self.speak_dialog("DisableSSH")
+		self.settings["sshd"] = False
 
 	@intent_file_handler("EnableAirPlay.intent")
 	def enable_airplay(self, message):
 		os.system("sudo systemctl enable shairport-sync.service")
 		os.system("sudo systemctl start shairport-sync.service")
 		self.speak_dialog("EnableAirPlay")
+		self.settings["airplay"] = True
 
 	@intent_file_handler("DisableAirPlay.intent")
 	def disable_airplay(self, message):
 		os.system("sudo systemctl disable shairport-sync.service")
 		os.system("sudo systemctl stop shairport-sync.service")
 		self.speak_dialog("DisableAirPlay")
+		self.settings["airplay"] = False
 
 
 def create_skill():
