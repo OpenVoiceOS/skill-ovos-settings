@@ -27,7 +27,7 @@ skillMetadata:
           value: "false"
         - type: label
           label: Snapcast client
-          value: Make your Mycroft device available as Snapcast client. With this enabled you can configure your device as multiroom audio playing device. Anything played on the network via Snapcast server will be played on the device. (NOTE: This still needs to be configured on an OS level through SSH and configuration files)
+          value: Make your Mycroft device available as Snapcast client. With this enabled you can configure your device as multiroom audio playing device. Anything played on the network via Snapcast server will be played on the device. (NOTE This still needs to be configured on an OS level through SSH and configuration files)
         - name: snapclient
           type: checkbox
           label: Enabled
@@ -38,14 +38,14 @@ skillMetadata:
           label: System services and applications
         - type: label
           label: Snapcast server
-          value: Make your Mycroft device available as Snapcast server. With this enabled you can configure your device as multiroom audio device. Anything played on the device will also be forwarded to configured Snapcast client devices. (NOTE: This still needs to be configured on an OS level through SSH and configuration files)
+          value: Make your Mycroft device available as Snapcast server. With this enabled you can configure your device as multiroom audio device. Anything played on the device will also be forwarded to configured Snapcast client devices. (NOTE This still needs to be configured on an OS level through SSH and configuration files)
         - name: snapserver
           type: checkbox
           label: Enabled
           value: "false"
         - type: label
           label: Media Player Daemon (MPD)
-          value: Make your Mycroft device available as MPD server. With this enabled you can configure your device as Media Player Daemon device. (NOTE: This still needs to be configured on an OS level through SSH and configuration files)
+          value: Make your Mycroft device available as MPD server. With this enabled you can configure your device as Media Player Daemon device. (NOTE This still needs to be configured on an OS level through SSH and configuration files)
         - name: mpd
           type: checkbox
           label: Enabled
