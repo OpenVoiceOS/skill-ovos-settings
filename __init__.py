@@ -93,8 +93,10 @@ class MycroftOS(MycroftSkill):
 		if self.airplay != self.settings.get("airplay"):
 			LOG.info('Airplay settings changed')
 			if self.settings.get("airplay") is True:
+				LOG.info('Airplay is true')
 				enable_airplay()
 			else:
+				LOG.info('Airplay is false')
 				disable_airplay()
 		else:
 			LOG.info('Airplay settings not changed')
