@@ -191,7 +191,7 @@ class MycroftOS(MycroftSkill):
 		os.system('sudo halt')
 
 	def on_reboot(self, message):
-		self.speak('I'll be right back')
+		self.speak('I will be right back')
 		sleep(5)
 		os.system('sudo reboot')
 
