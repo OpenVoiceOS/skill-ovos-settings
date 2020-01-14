@@ -83,6 +83,7 @@ class MycroftOS(MycroftSkill):
 			LOG.exception('In MycroftOS Skill')
 
 	def on_websettings_changed(self):
+		LOG.info('MycroftOS websettings changed')
 		if self.sshd != self.settings.get("sshd"):
 			if self.settings.get("sshd") is True:
 				enable_ssh()
@@ -90,10 +91,13 @@ class MycroftOS(MycroftSkill):
 				disable_ssh()
 
 		if self.airplay != self.settings.get("airplay"):
+			LOG.info('Airplay settings changed')
 			if self.settings.get("airplay") is True:
 				enable_airplay()
 			else:
 				disable_airplay()
+		else:
+			LOG.info('Airplay settings not changed')
 
 	# System volume
 	#def on_volume_set(self, message):
