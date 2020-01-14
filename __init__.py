@@ -33,8 +33,8 @@ class MycroftOS(MycroftSkill):
 		super().__init__('MycroftOS')
 		self.skip_list = ('MycroftOS')
 		self.loading = True
-		self.airplay = self.settings.get("airplay")
-		self.sshd = self.settings.get("sshd")
+		self.airplay = self.settings.get('airplay')
+		self.sshd = self.settings.get('sshd')
 
 	def initialize(self):
 		""" Perform initalization.
@@ -76,28 +76,28 @@ class MycroftOS(MycroftSkill):
 			#self.add_event('mycroft.volume.unduck', self.on_volume_unduck)
 
 			# Administrative messages
-			self.bus.on("system.shutdown", self.on_shutdown)
-			self.bus.on("system.reboot", self.on_reboot)
+			self.bus.on('system.shutdown', self.on_shutdown)
+			self.bus.on('system.reboot', self.on_reboot)
 
 		except Exception:
 			LOG.exception('In MycroftOS Skill')
 
 	def on_websettings_changed(self):
 		LOG.info('MycroftOS websettings changed')
-		if self.sshd != self.settings.get("sshd"):
-			if self.settings.get("sshd") is True:
-				enable_ssh()
+		if self.sshd != self.settings.get('sshd'):
+			if self.settings.get('sshd') is True:
+				self.enable_ssh()
 			else:
-				disable_ssh()
+				self.disable_ssh()
 
-		if self.airplay != self.settings.get("airplay"):
+		if self.airplay != self.settings.get('airplay'):
 			LOG.info('Airplay settings changed')
-			if self.settings.get("airplay") is True:
+			if self.settings.get('airplay') is True:
 				LOG.info('Airplay is true')
-				enable_airplay()
+				self.enable_airplay()
 			else:
 				LOG.info('Airplay is false')
-				disable_airplay()
+				self.disable_airplay()
 		else:
 			LOG.info('Airplay settings not changed')
 
@@ -133,19 +133,19 @@ class MycroftOS(MycroftSkill):
 	def on_handler_audio_start(self, message):
 		self.speaking = True
 		#framebuffer speaking visual
-		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/speaking.png > /dev/null 2>&1")
+		os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/speaking.png > /dev/null 2>&1')
 
 	def on_handler_audio_end(self, message):
 		self.speaking = False
 		#framebuffer background
-		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
+		os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1')
 
 	def on_handler_started(self, message):
 		handler = message.data.get('handler', '')
 		if self._skip_handler(handler):
 			return
 		#framebuffer thinking visual
-		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/thinking.png > /dev/null 2>&1")
+		os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/thinking.png > /dev/null 2>&1')
 
 	def on_handler_complete(self, message):
 		handler = message.data.get('handler', '')
@@ -156,7 +156,7 @@ class MycroftOS(MycroftSkill):
 		# turn off the framebuffer
 		if not self.speaking:
 			#framebuffer background
-			os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
+			os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1')
 
 	def _skip_handler(self, handler):
 		#Ignoring handlers from this skill
@@ -164,15 +164,15 @@ class MycroftOS(MycroftSkill):
 
 	def handle_listener_started(self, message):
 		#framebuffer listen visual
-		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/listen.png > /dev/null 2>&1")
+		os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/listen.png > /dev/null 2>&1')
 
 	def handle_listener_ended(self, message):
 		#framebuffer background
-		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
+		os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1')
 
 	def handle_failed_stt(self, message):
 		#framebuffer background
-		os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
+		os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1')
 
 
 	# Device is fully started
@@ -180,80 +180,80 @@ class MycroftOS(MycroftSkill):
 		"""Triggered after skills are initialized."""
 		self.loading = False
 		if is_paired():
-			os.system("fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1")
+			os.system('fbv -f -d 1 /opt/mycroft/skills/mycroftos-enclosure-skill/ui/background.png > /dev/null 2>&1')
 			self.speak_dialog('finished.booting')
 
 
 	# System actions
 	def on_shutdown(self, message):
-		self.speak("Till next time")
+		self.speak('Till next time')
 		sleep(5)
-		os.system("sudo halt")
+		os.system('sudo halt')
 
 	def on_reboot(self, message):
-		self.speak("I'll be right back")
+		self.speak('I'll be right back')
 		sleep(5)
-		os.system("sudo reboot")
+		os.system('sudo reboot')
 
-	def enable_ssh(self, message):
-		#os.system("sudo systemctl enable sshd.service")
-		#os.system("sudo systemctl start sshd.service")
-		self.settings["sshd"] = True
+	def enable_ssh(self):
+		#os.system('sudo systemctl enable sshd.service')
+		#os.system('sudo systemctl start sshd.service')
+		self.settings['sshd'] = True
 		self.sshd = True
 	
-	def disable_ssh(self, message):
-		#os.system("sudo systemctl disable sshd.service")
-		#os.system("sudo systemctl stop sshd.service")
-		self.settings["sshd"] = False
+	def disable_ssh(self):
+		#os.system('sudo systemctl disable sshd.service')
+		#os.system('sudo systemctl stop sshd.service')
+		self.settings['sshd'] = False
 		self.sshd = False
 		
-	def enable_airplay(self, message):
+	def enable_airplay(self):
 		LOG.info('Start of enable_airplay')
-		os.system('sudo systemctl enable shairport-sync')
-		os.system('sudo systemctl start shairport-sync')
-		self.settings["airplay"] = True
+		os.system('sudo systemctl enable shairport-sync.service')
+		os.system('sudo systemctl start shairport-sync.service')
+		self.settings['airplay'] = True
 		self.airplay = True
 		LOG.info('Start of enable_airplay')
 		
-	def disable_airplay(self, message):
-		os.system("sudo systemctl disable shairport-sync.service")
-		os.system("sudo systemctl stop shairport-sync.service")
-		self.settings["airplay"] = False
+	def disable_airplay(self):
+		os.system('sudo systemctl disable shairport-sync.service')
+		os.system('sudo systemctl stop shairport-sync.service')
+		self.settings['airplay'] = False
 		self.airplay = False
 		
 
 	# Intent handlers
-	@intent_file_handler("EnableSSH.intent")
+	@intent_file_handler('EnableSSH.intent')
 	def on_enable_ssh(self, message):
 		if self.sshd is False:
-			enable_ssh()
-			self.speak_dialog("EnabledSSH")
+			self.enable_ssh()
+			self.speak_dialog('EnabledSSH')
 		else:
-			self.speak_dialog("AlreadyEnabledSSH")
+			self.speak_dialog('AlreadyEnabledSSH')
 
-	@intent_file_handler("DisableSSH.intent")
+	@intent_file_handler('DisableSSH.intent')
 	def on_disable_ssh(self, message):
 		if self.sshd is True:
-			disable_ssh()
-			self.speak_dialog("DisabledSSH")
+			self.disable_ssh()
+			self.speak_dialog('DisabledSSH')
 		else:
-			self.speak_dialog("AlreadyDisabledSSH")
+			self.speak_dialog('AlreadyDisabledSSH')
 
-	@intent_file_handler("EnableAirPlay.intent")
+	@intent_file_handler('EnableAirPlay.intent')
 	def on_enable_airplay(self, message):
 		if self.airplay is False:
-			enable_airplay()
-			self.speak_dialog("EnabledAirPlay")
+			self.enable_airplay()
+			self.speak_dialog('EnabledAirPlay')
 		else:
-			self.speak_dialog("AlreadyEnabledAirPlay")
+			self.speak_dialog('AlreadyEnabledAirPlay')
 
-	@intent_file_handler("DisableAirPlay.intent")
+	@intent_file_handler('DisableAirPlay.intent')
 	def on_disable_airplay(self, message):
 		if self.airplay is True:
-			disable_airplay()
-			self.speak_dialog("DisabledAirPlay")
+			self.disable_airplay()
+			self.speak_dialog('DisabledAirPlay')
 		else:
-			self.speak_dialog("AlreadyDisabledAirPlay")
+			self.speak_dialog('AlreadyDisabledAirPlay')
 
 def create_skill():
 	return MycroftOS()
