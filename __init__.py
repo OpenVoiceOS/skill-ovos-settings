@@ -208,10 +208,12 @@ class MycroftOS(MycroftSkill):
 		self.sshd = False
 		
 	def enable_airplay(self, message):
-		os.system("sudo systemctl enable shairport-sync.service")
-		os.system("sudo systemctl start shairport-sync.service")
+		LOG.info('Start of enable_airplay')
+		os.system('sudo systemctl enable shairport-sync')
+		os.system('sudo systemctl start shairport-sync')
 		self.settings["airplay"] = True
 		self.airplay = True
+		LOG.info('Start of enable_airplay')
 		
 	def disable_airplay(self, message):
 		os.system("sudo systemctl disable shairport-sync.service")
