@@ -43,8 +43,7 @@ class MycroftOS(MycroftSkill):
 		
 		# Handle settings change
 		self.settings_change_callback = self.on_websettings_changed
-		self.on_websettings_changed()
-		
+			
 		try:
 		
 			# Handle the 'waking' visual
@@ -191,14 +190,14 @@ class MycroftOS(MycroftSkill):
 		os.system("sudo reboot")
 
 	def enable_ssh(self, message):
-		os.system("sudo systemctl enable sshd.service")
-		os.system("sudo systemctl start sshd.service")
+		#os.system("sudo systemctl enable sshd.service")
+		#os.system("sudo systemctl start sshd.service")
 		self.settings["sshd"] = True
 		self.sshd = True
 	
 	def disable_ssh(self, message):
-		os.system("sudo systemctl disable sshd.service")
-		os.system("sudo systemctl stop sshd.service")
+		#os.system("sudo systemctl disable sshd.service")
+		#os.system("sudo systemctl stop sshd.service")
 		self.settings["sshd"] = False
 		self.sshd = False
 		

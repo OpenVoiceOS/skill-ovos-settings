@@ -11,10 +11,45 @@ skillMetadata:
           type: checkbox
           label: Enabled
           value: "false"
+        - type: label
+          label: Spotify Connect
+          value: Make your Mycroft device available as Spotify Connect device so you can select it as possible output device from within the Spotify app. Be aware this only makes it available within the app, if you want to control spotify by voice you need to iinstall the Spotify skill and configure it.
+        - name: spotifyd
+          type: checkbox
+          label: Enabled
+          value: "false"
+        - type: label
+          label: Bluetooth speaker
+          value: Make your Mycroft device available as bluetooth speaker. With this enabled you can pair your phone or other device and use your Mycroft as sound output. It should ask for a PIN, which is 0000.
+        - name: btspeaker
+          type: checkbox
+          label: Enabled
+          value: "false"
+        - type: label
+          label: Snapcast client
+          value: Make your Mycroft device available as Snapcast client. With this enabled you can configure your device as multiroom audio playing device. Anything played on the network via Snapcast server will be played on the device. (NOTE: This still needs to be configured on an OS level through SSH and configuration files)
+        - name: snapclient
+          type: checkbox
+          label: Enabled
+          value: "false"
     - name: MycroftOS system configuration
       fields:
         - type: label
-          label: System services
+          label: System services and applications
+        - type: label
+          label: Snapcast server
+          value: Make your Mycroft device available as Snapcast server. With this enabled you can configure your device as multiroom audio device. Anything played on the device will also be forwarded to configured Snapcast client devices. (NOTE: This still needs to be configured on an OS level through SSH and configuration files)
+        - name: snapserver
+          type: checkbox
+          label: Enabled
+          value: "false"
+        - type: label
+          label: Media Player Daemon (MPD)
+          value: Make your Mycroft device available as MPD server. With this enabled you can configure your device as Media Player Daemon device. (NOTE: This still needs to be configured on an OS level through SSH and configuration files)
+        - name: mpd
+          type: checkbox
+          label: Enabled
+          value: "false"
         - type: label
           label: Secure Shell (SSH)
           value: Secure Shell (SSH) is a cryptographic network protocol for operating network services securely over an unsecured network.[1] Typical applications include remote command-line, login, and remote command execution.
