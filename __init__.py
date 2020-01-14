@@ -226,7 +226,7 @@ class MycroftOS(MycroftSkill):
 	@intent_file_handler("EnableSSH.intent")
 	def on_enable_ssh(self, message):
 		if self.sshd is False:
-			self.enable_ssh()
+			enable_ssh()
 			self.speak_dialog("EnabledSSH")
 		else:
 			self.speak_dialog("AlreadyEnabledSSH")
@@ -234,7 +234,7 @@ class MycroftOS(MycroftSkill):
 	@intent_file_handler("DisableSSH.intent")
 	def on_disable_ssh(self, message):
 		if self.sshd is True:
-			self.disable_ssh()
+			disable_ssh()
 			self.speak_dialog("DisabledSSH")
 		else:
 			self.speak_dialog("AlreadyDisabledSSH")
@@ -242,7 +242,7 @@ class MycroftOS(MycroftSkill):
 	@intent_file_handler("EnableAirPlay.intent")
 	def on_enable_airplay(self, message):
 		if self.airplay is False:
-			self.enable_airplay()
+			enable_airplay()
 			self.speak_dialog("EnabledAirPlay")
 		else:
 			self.speak_dialog("AlreadyEnabledAirPlay")
@@ -250,7 +250,7 @@ class MycroftOS(MycroftSkill):
 	@intent_file_handler("DisableAirPlay.intent")
 	def on_disable_airplay(self, message):
 		if self.airplay is True:
-			self.disable_airplay()
+			disable_airplay()
 			self.speak_dialog("DisabledAirPlay")
 		else:
 			self.speak_dialog("AlreadyDisabledAirPlay")
