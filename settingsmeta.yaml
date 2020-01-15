@@ -5,8 +5,7 @@ skillMetadata:
         - type: label
           label: Smart speaker services and functionality
         - type: label
-          label: Airplay audio player (v1)
-          value: AirPlay is a proprietary protocol stack/suite developed by Apple Inc. that allows wireless streaming between devices of audio, video, device screens, and photos, together with related metadata.
+          label: <strong>Airplay audio player (v1)</strong><p>AirPlay is a proprietary protocol stack/suite developed by Apple Inc. that allows wireless streaming between devices of audio, video, device screens, and photos, together with related metadata.</p>
         - name: airplay
           type: checkbox
           label: Enabled
