@@ -28,14 +28,12 @@ skillMetadata:
           type: checkbox
           label: Enabled
           value: "false"
-        - type: label
-          label: <hr><br>
     - name: MycroftOS system configuration
       fields:
         - type: label
           label: <p>MycroftOS is based on a minimalistic linux OS called Buildroot. However, although small and minimalistic in size, MycroftOS comes with certain linux services and applications. This is for advanced users that would like to tinker with their box and or do more with it than only Mycroft related things.</p>
         - type: label
-          label: <br><strong>Snapcast server</strong><p>Make your Mycroft device available as Snapcast server. With this enabled you can configure your device as multiroom audio device. Anything played on the device will also be forwarded to configured Snapcast client devices. (NOTE This still needs to be configured on an OS level through SSH and configuration files)</p>
+          label: <hr><br><strong>Snapcast server</strong><p>Make your Mycroft device available as Snapcast server. With this enabled you can configure your device as multiroom audio device. Anything played on the device will also be forwarded to configured Snapcast client devices. (NOTE This still needs to be configured on an OS level through SSH and configuration files)</p>
         - name: snapserver
           type: checkbox
           label: Enabled
