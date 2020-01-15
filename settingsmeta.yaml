@@ -3,16 +3,15 @@ skillMetadata:
     - name: Smart speaker functionality
       fields:
         - type: label
-          label: Smart speaker services and functionality
+          label: <p>You can enable or disable smart speaker services and functionality currently present on the MycroftOS system. As every user has different requirements and is using different hardware, devices and network protocols, all these services are disabled by default. You can easily enable or disable any of the below services here, by selecting the enabled checkbox (slightly delayed as you need to wait for settings synchronisation) or by using voice commands to your MycroftOS device.</.p><br><p>For example<br><br>Hey Mycroft, enable spotify.</p>  
         - type: label
           label: <strong>Airplay audio player (v1)</strong><p>AirPlay is a proprietary protocol stack/suite developed by Apple Inc. that allows wireless streaming between devices of audio, video, device screens, and photos, together with related metadata.</p>
         - name: airplay
           type: checkbox
-          label: Enabled
+          label: Enabled<br>
           value: "false"
         - type: label
-          label: Spotify Connect
-          value: Make your Mycroft device available as Spotify Connect device so you can select it as possible output device from within the Spotify app. Be aware this only makes it available within the app, if you want to control spotify by voice you need to iinstall the Spotify skill and configure it.
+          label: <strong>Spotify Connect</strong><p>Make your Mycroft device available as Spotify Connect device so you can select it as possible output device from within the Spotify app. Be aware this only makes it available within the app, if you want to control spotify by voice you need to iinstall the Spotify skill and configure it.</p>
         - name: spotifyd
           type: checkbox
           label: Enabled
