@@ -154,7 +154,7 @@ class MycroftOS(MycroftSkill):
 	# System services
 	def enable_ssh(self):
 		self.settings['sshd'] = True
-		if !os.path.isfile('/etc/systemd/system/multi-user.target.wants/sshd.service'):
+		if  not os.path.isfile('/etc/systemd/system/multi-user.target.wants/sshd.service'):
 			# Service not yet enabled
 			os.system('sudo systemctl enable sshd.service')
 			self.speak_dialog('EnabledSSH')
