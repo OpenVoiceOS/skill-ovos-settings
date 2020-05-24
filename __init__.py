@@ -38,15 +38,11 @@ class MycroftOS(MycroftSkill):
 		self.spotify_enabled = False
 		self.btspeaker_enabled = False
 		self.snapclient_enabled = False
-		self.snapserver_enabled = False
-		self.mpd_enabled = False
 		self.airplay_enabled = self.settings.get('airplay')
 		self.sshd_enabled = self.settings.get('sshd')
 		self.spotify_enabled = self.settings.get('spotifyd')
 		self.btspeaker_enabled = self.settings.get('btspeaker')
 		self.snapclient_enabled = self.settings.get('snapclient')
-		self.snapserver_enabled = self.settings.get('snapserver')
-		self.mpd_enabled = self.settings.get('mpd')
 
 	def initialize(self):
 		""" Perform initalization.
@@ -71,7 +67,7 @@ class MycroftOS(MycroftSkill):
 			self.bus.on('system.reboot', self.on_reboot)
 
 		except Exception:
-			LOG.exception('In MycroftOS Skill')
+			LOG.exception('In MycroftOS Enclosure Skill')
 
 	def on_websettings_changed(self):
 		if self.sshd_enabled != self.settings.get('sshd'):
@@ -103,18 +99,6 @@ class MycroftOS(MycroftSkill):
 				self.enable_snapclient()
 			else:
 				self.disable_snapclient()
-		
-		if self.snapserver_enabled != self.settings.get('snapserver'):
-			if self.settings.get('snapserver') is True:
-				self.enable_snapserver()
-			else:
-				self.disable_snapserver()
-		
-		if self.mpd_enabled != self.settings.get('mpd'):
-			if self.settings.get('mpd') is True:
-				self.enable_mpd()
-			else:
-				self.disable_mpd()
 
 	# System volume
 	#def on_volume_set(self, message):
@@ -154,7 +138,7 @@ class MycroftOS(MycroftSkill):
 	# System services
 	def enable_ssh(self):
 		self.settings['sshd'] = True
-		if  not os.path.isfile('/etc/systemd/system/multi-user.target.wants/sshd.service'):
+		if not os.path.isfile('/etc/systemd/system/multi-user.target.wants/sshd.service'):
 			# Service not yet enabled
 			os.system('sudo systemctl enable sshd.service')
 			self.speak_dialog('EnabledSSH')
@@ -237,38 +221,6 @@ class MycroftOS(MycroftSkill):
 		self.snapclient_enabled = False
 		self.snapclient_started = False
 		self.speak_dialog('DisabledSnapclient')
-
-	def enable_snapserver(self):
-		os.system('sudo systemctl enable snapserver.service')
-		os.system('sudo systemctl start snapserver.service')
-		self.settings['snapserver'] = True
-		self.snapserver_enabled = True
-		self.snapserver_started = True
-		self.speak_dialog('EnabledSnapserver')
-
-	def disable_snapserver(self):
-		os.system('sudo systemctl disable snapserver.service')
-		os.system('sudo systemctl stop snapserver.service')
-		self.settings['snapserver'] = False
-		self.snapserver_enabled = False
-		self.snapserver_started = False
-		self.speak_dialog('DisabledSnapserver')
-
-	def enable_mpd(self):
-		os.system('sudo systemctl enable mpd.service')
-		os.system('sudo systemctl start mpd.service')
-		self.settings['mpd'] = True
-		self.mpd_enabled = True
-		self.mpd_started = True
-		self.speak_dialog('EnabledMPD')
-
-	def disable_mpd(self):
-		os.system('sudo systemctl disable mpd.service')
-		os.system('sudo systemctl stop mpd.service')
-		self.settings['mpd'] = False
-		self.mpd_enabled = False
-		self.mpd_started = False
-		self.speak_dialog('DisabledMPD')
 
 
 def create_skill():
