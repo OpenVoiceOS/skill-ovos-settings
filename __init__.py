@@ -11,28 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-import subprocess
 import os
-import sys
 
 from mycroft.api import is_paired
-from mycroft.messagebus.message import Message
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import LOG
-from mycroft.util.parse import normalize
-from mycroft.util import play_wav
-from mycroft import intent_file_handler
 
-class MycroftOS(MycroftSkill):
+
+class OpenVoiceOSSettings(MycroftSkill):
 	"""
-	The MycroftOS skill handles much of the screen and audio activities
+	The OpenVoiceOSSettings skill handles much of the screen and audio activities
 	related to Mycroft's core functionality.
 	"""
 	def __init__(self):
-		super().__init__('MycroftOS')
-		self.skip_list = ('MycroftOS')
-		self.loading = True
+		super().__init__('OpenVoiceOSSettings')
+		self.skip_list = ('OpenVoiceOSSettings')
 		self.airplay_enabled = False
 		self.sshd_enabled = True
 		self.spotify_enabled = False
@@ -45,29 +38,15 @@ class MycroftOS(MycroftSkill):
 		self.snapclient_enabled = self.settings.get('snapclient')
 
 	def initialize(self):
-		""" Perform initalization.
-		Registers messagebus handlers.
+		""" Perform initialization. Registers messagebus handlers.
 		"""
-		
 		# Handle settings change
 		self.settings_change_callback = self.on_websettings_changed
-			
 		try:
 			# Handle Device Ready
-			self.bus.on('mycroft.ready', self.reset_screen)
-
-			# Handle volume setting via PulseAudio
-			#self.add_event('mycroft.volume.set', self.on_volume_set)
-			#self.add_event('mycroft.volume.get', self.on_volume_get)
-			#self.add_event('mycroft.volume.duck', self.on_volume_duck)
-			#self.add_event('mycroft.volume.unduck', self.on_volume_unduck)
-
-			# Administrative messages
-			self.bus.on('system.shutdown', self.on_shutdown)
-			self.bus.on('system.reboot', self.on_reboot)
-
+			self.bus.on('mycroft.ready', self.handle_ready)
 		except Exception:
-			LOG.exception('In MycroftOS Enclosure Skill')
+			LOG.exception('In OpenVoiceOSSettings Enclosure Skill')
 
 	def on_websettings_changed(self):
 		if self.sshd_enabled != self.settings.get('sshd'):
@@ -100,40 +79,11 @@ class MycroftOS(MycroftSkill):
 			else:
 				self.disable_snapclient()
 
-	# System volume
-	#def on_volume_set(self, message):
-	#	self.muted = False
-	#	self.set_pulse_volume(vol)
-
-	#def on_volume_get(self, message):
-	#	self.bus.emit(message.response(data={'percent': self.volume, 'muted': self.muted}))
-
-	#def on_volume_duck(self, message):
-	#	self.muted = True
-        #        call(['pactl', 'set-sink-mute', '0', '1'])
-
-	#def on_volume_unduck(self, message):
-	#	self.muted = False
-	#	call(['pactl', 'set-sink-mute', '0', '0'])
-
 	# Device is fully started
-	def reset_screen(self, message):
+	def handle_ready(self, message):
 		"""Triggered after skills are initialized."""
-		self.loading = False
 		if is_paired():
 			self.speak_dialog('finished.booting')
-
-
-	# System actions
-	def on_shutdown(self):
-		self.speak('Till next time')
-		sleep(5)
-		os.system('sudo halt')
-
-	def on_reboot(self):
-		self.speak('I will be right back')
-		sleep(5)
-		os.system('sudo reboot')
 
 	# System services
 	def enable_ssh(self):
@@ -156,7 +106,6 @@ class MycroftOS(MycroftSkill):
 		
 		self.sshd_enabled = False
 		self.sshd_started = True
-		
 
 	def enable_airplay(self):
 		os.system('sudo systemctl enable shairport-sync.service')
@@ -224,4 +173,4 @@ class MycroftOS(MycroftSkill):
 
 
 def create_skill():
-	return MycroftOS()
+	return OpenVoiceOSSettings()
