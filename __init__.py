@@ -31,15 +31,20 @@ class OpenVoiceOSSettings(MycroftSkill):
 		self.spotify_enabled = False
 		self.btspeaker_enabled = False
 		self.snapclient_enabled = False
+		self.airplay_enabled = False
+		self.sshd_enabled = False
+		self.spotify_enabled = False
+		self.btspeaker_enabled = False
+		self.snapclient_enabled = False
+
+	def initialize(self):
+		""" Perform initialization. Registers messagebus handlers.
+		"""
 		self.airplay_enabled = self.settings.get('airplay')
 		self.sshd_enabled = self.settings.get('sshd')
 		self.spotify_enabled = self.settings.get('spotifyd')
 		self.btspeaker_enabled = self.settings.get('btspeaker')
 		self.snapclient_enabled = self.settings.get('snapclient')
-
-	def initialize(self):
-		""" Perform initialization. Registers messagebus handlers.
-		"""
 		# Handle settings change
 		self.settings_change_callback = self.on_websettings_changed
 		try:
