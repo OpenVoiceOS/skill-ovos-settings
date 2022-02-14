@@ -17,7 +17,6 @@ setup(
     package_data={'ovos_skill_settings': ["locale/*", "dialog/*", "vocab/*", "ui/*", "res/*", ]},
     packages=['ovos_skill_settings'],
     include_package_data=True,
-    install_requires=["ovos-plugin-manager>=0.0.2"],
     keywords='ovos skill plugin',
     entry_points={'ovos.plugin.skill': PLUGIN_ENTRY_POINT}
 )
